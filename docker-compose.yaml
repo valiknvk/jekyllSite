@@ -1,0 +1,14 @@
+version: "3.9"
+services:
+  testsite:
+    container_name: testsite
+    image: novikva/jekyll_site:latest
+#    environment:
+
+    restart: always
+    networks:
+      - site_network
+    ports:
+      - "4000:4000"
+networks:
+  site_network:
