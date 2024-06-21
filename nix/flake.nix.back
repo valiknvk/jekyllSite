@@ -16,18 +16,18 @@
           })
         ];
         pkgs = import nixpkgs { inherit overlays system; };
-
+        site_dir = pkgs.lib.fileset.toSource {
+        root = ./test_site;
+        fileset = ./test_site;
+        };
         rubyEnv = pkgs.bundlerEnv {
           # The full app environment with dependencies
           name = "rails-env";
           inherit (pkgs) ruby;
           gemdir = ./.; # Points to Gemfile.lock and gemset.nix
-          siteDir = ./test_site;
+#          siteDir = ./test_site;
         };
-        site_dir = pkgs.lib.fileset.toSource {
-          root = ./.;
-          fileset = ./test_site;
-        };
+
 #        updateDeps = pkgs.writeScriptBin "update-deps" (builtins.readFile
 #          (pkgs.substituteAll {
 #            src = ./scripts/update.sh;
@@ -60,17 +60,16 @@
           default = rubyEnv;
 
           docker = pkgs.dockerTools.buildImage {
-#          docker = pkgs.dockerTools.buildLayeredImage {
-            name = "jekyll-site";
+            name = "rails-app";
             tag = "latest";
 #            copyToRoot = pkgs.buildEnv {
 #            name = "siteDir";
-#            pathsToLink = ["${jekyll_env}/test_site" "/test_site"];
-#            paths = [ ./.]; # ./. not ./hello.sh
+#            pathsToLink = ["./test_site" "/test_site"];
+#            paths = [pkgs.coreutils ./.]; # ./. not ./hello.sh
 #            };
-            contents = [
-                site_dir
-            ];
+#            contents = [
+#                site_dir
+#            ];
             fromImage = pkgs.dockerTools.pullImage {
               imageName = "ubuntu";
               finalImageTag = "20.04";

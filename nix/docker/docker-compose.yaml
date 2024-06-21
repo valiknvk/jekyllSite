@@ -1,0 +1,17 @@
+version: "3.9"
+services:
+  testsite:
+    container_name: jekyll
+    image: jekyll-site:latest #rails-app:latest
+#    environment:
+#    command: ["jekyll", "serve", "--watch"]
+#    volumes:
+#      - ./test_site:/test_site
+    restart: always
+    networks:
+      - site_network
+    ports:
+      - "4000:4000"
+
+networks:
+  site_network:

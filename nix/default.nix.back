@@ -11,9 +11,7 @@ in
   stdenv.mkDerivation rec {
     name = "site";
     buildInputs = [ jekyll_env bundler ruby ];
-      buildPhase = ''
-    ${jekyll_env}/bin/bundle exec jekyll build
-  '';
+
     shellHook = ''
       exec ${jekyll_env}/bin/jekyll serve --watch
     '';
