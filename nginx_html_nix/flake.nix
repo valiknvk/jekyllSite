@@ -29,11 +29,10 @@
            ];
             extraCommands = ''
                        mkdir -p var/log/nginx var/cache/nginx var/www
-		       cp -r ${site_dir}/site var/www/
                        mkdir -p tmp/nginx_client_body
             '';
             config.Cmd = ["${pkgs.nginx}/bin/nginx" "-c" "${nginxConf}/nginx.conf"] ;
-            config.ExposedPorts = {"80/tcp" = {};};
+            config.ExposedPorts = {"81/tcp" = {};};
           };
 	});
 }
