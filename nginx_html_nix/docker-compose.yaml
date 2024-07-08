@@ -12,6 +12,6 @@ services:
       - site_network
     ports:
 #      - "4000:4000"
-      - "81:81"
+      - "8080:80"
 networks:
   site_network:

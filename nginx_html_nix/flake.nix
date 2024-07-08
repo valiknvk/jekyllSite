@@ -32,7 +32,7 @@
                        mkdir -p tmp/nginx_client_body
             '';
             config.Cmd = ["${pkgs.nginx}/bin/nginx" "-c" "${nginxConf}/nginx.conf"] ;
-            config.ExposedPorts = {"81/tcp" = {};};
+            config.ExposedPorts = {"80/tcp" = {};};
           };
 	});
 }
